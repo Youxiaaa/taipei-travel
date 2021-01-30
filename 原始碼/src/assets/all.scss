@@ -1,0 +1,149 @@
+@import '~bootstrap/scss/functions';
+@import './helpers/variables';
+@import '~bootstrap/scss/bootstrap';
+
+body,html{
+  background-color: $light;
+  font-family: 'Noto Sans TC', sans-serif;
+}
+
+.loadingAnimation{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.computerrightSide{
+  position: absolute;
+  width: 80%;
+  left: 20%;
+}
+
+.computerleftSide{
+  position: fixed;
+  width: 20%;
+  height: 100vh;
+  left: 0;
+  background-color: $primary;
+}
+
+.leftSide{
+  position: fixed;
+  top: 0; bottom: 0; left: -70%;
+  height: 100vh;
+  width: 70%;
+  background-color: $primary;
+  transition: .3s ease;
+  z-index: 9998;
+}
+
+.leftSideBtn{
+  position: absolute;
+  width: 40px;
+  height: 60px;
+  border-radius: 0 10px 10px 0;
+  background-color: $primary;
+  bottom: 50%; left: 98%;
+}
+
+.rightSide{
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  padding: 10px 0;
+  transition: .3s ease;
+}
+
+.leftSideMove{
+  left: 0;
+}
+
+.rightSideMove{
+  left: 20%;
+}
+
+@media(max-width : 1025px){
+  .computerleftSide{
+    display: none !important;
+  }
+  .computerrightSide{
+    display: none;
+  }
+}
+
+@media(min-width : 1025px){
+  .leftSide{
+    display: none !important;
+  }
+  .phoneFix{
+    display: none !important;
+  }
+  .rightSide{
+    display: none;
+  }
+}
+
+.card{
+  border: none !important;
+  cursor: pointer;
+  transition: .3s ease;
+}
+
+.card:hover{
+  transform: translateY(-5px);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1)
+}
+
+.pageDisabled{
+  pointer-events: none !important;
+  opacity: 0.4 !important;
+}
+
+.lg-fix{
+  line-height: 35px;
+  cursor: pointer;
+}
+
+.borderAdd{
+  border: 3px solid #000;
+}
+
+.ellipsis {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 479px;
+  display: -webkit-box;
+  -webkit-line-clamp: 5;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+}
+
+.curtain{
+  transition: .3s ease;
+}
+
+.curtainShow{
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  position: absolute;
+  top: 0; bottom: 0;
+  z-index: 9997;
+}
+
+.preFadein{
+  transition: .5s ease;
+  opacity: 0;
+}
+
+.fadeIn{
+  opacity: 1;
+}
