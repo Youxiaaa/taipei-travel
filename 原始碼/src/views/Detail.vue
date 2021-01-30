@@ -11,7 +11,8 @@
       </div>
       <div class="row">
         <div class="col-md-6 my-3">
-          <img :src="data.images[0].src" alt="" :key="data.id" v-if="data.images[0]" height="350px" class="d-flex mx-auto">
+          <img :src="data.images[0].src" alt="" :key="data.id" v-if="data.images[0]" height="365px" class="d-flex mx-auto computerImage">
+          <img :src="data.images[0].src" alt="" :key="data.id" v-if="data.images[0]" width="100%" class="d-flex mx-auto responsiveImage">
           <div v-else class="d-flex justify-content-center">
             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.svg/1200px-%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.svg.png" alt="" height="400px">
           </div>

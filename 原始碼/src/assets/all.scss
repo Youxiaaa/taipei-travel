@@ -147,3 +147,23 @@ body,html{
 .fadeIn{
   opacity: 1;
 }
+
+.computerImage{
+  display: none !important;
+}
+
+.responsiveImage{
+  display: none !important;
+}
+
+@media(min-width : 1025px){
+  .computerImage{
+    display: flex !important;
+  }
+}
+
+@media(max-width : 1024px) {
+  .responsiveImage{
+    display: flex !important;
+  }
+}
