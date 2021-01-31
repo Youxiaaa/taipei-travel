@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <section class="preFadein" :class="{'fadeIn': loadingCompleted}">
+    <section class="preFadein" :class="{'fadeIn': loadingCompleted}"  v-touch:swipe.right="openLeftside" v-touch:swipe.left="closeLeftside">
       <!-- leftSide -->
       <div class="computerleftSide d-flex align-items-center justify-content-center flex-column">
         <div class="mt-auto">
@@ -27,7 +27,7 @@
           <h2 class="h6 text-white">Copyright &copy; 2021 YoYo游</h2>
         </div>
       </div>
-      <div class="leftSide d-flex align-items-center justify-content-center flex-column" :class="{'leftSideMove': sideMove}" v-touch:swipe.left="closeLeftside">
+      <div class="leftSide d-flex align-items-center justify-content-center flex-column" :class="{'leftSideMove': sideMove}">
         <div class="leftSideBtn">
           <div class="d-flex justify-content-center mt-2">
             <h2 class="text-white" @click="sideMove = !sideMove" v-if="sideMove">&laquo;</h2>
@@ -86,7 +86,7 @@
           </nav>
         </div>
       </div>
-      <div class="rightSide" v-touch:swipe.right="openLeftside" v-touch:swipe.left="closeLeftside">
+      <div class="rightSide">
         <!-- 遮罩 -->
         <div class="curtain" :class="{'curtainShow': sideMove}"></div>
         <div class="container">
