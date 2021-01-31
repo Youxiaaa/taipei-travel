@@ -12,7 +12,7 @@
       <!-- leftSide -->
       <div class="computerleftSide d-flex align-items-center justify-content-center flex-column">
         <div class="mt-auto">
-          <h1 class="h3 text-white mt-4">台 北 市 旅 遊 網</h1>
+          <h1 class="h3 text-white mt-4">雙 北 旅 遊 資 訊 網</h1>
           <select v-model="currentDistric" class="form-control">
             <option value="" selected disabled>請選擇行政區</option>
             <option :value="item" v-for="item in distric" :key="item.id"> {{ item }} </option>
@@ -35,7 +35,7 @@
           </div>
         </div>
         <div class="mt-auto">
-            <h1 class="h3 text-white mt-4">台 北 市 旅 遊 網</h1>
+            <h1 class="h3 text-white mt-4">雙 北 旅 遊 資 訊 網</h1>
             <select v-model="currentDistric" class="form-control">
               <option value="" selected disabled>請選擇行政區</option>
               <option :value="item" v-for="item in distric" :key="item.id"> {{ item }} </option>
@@ -55,16 +55,19 @@
         <div class="container">
           <div class="row">
             <div class="col-md-3 my-3" v-for="item in filterData[currentPage]" :key="item.id">
-              <div class="card h-100" @click.prevent="checkDetail(item)">
-                <div class="card-header p-0 d-flex justify-content-center border-0">
+              <div class="card h-100">
+                <div class="card-header p-0 d-flex justify-content-center border-0" @click.prevent="checkDetail(item)">
                   <img :src="item.images[0].src" alt="" height="170px" v-if="item.images[0]">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.svg/1200px-%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.svg.png" alt="" height="170px" v-else>
                 </div>
-                <div class="card-body p-0 py-3 pl-2 d-flex justify-content-center flex-column">
-                  <h2 class="h6 text-primary d-flex"> {{ item.name }} </h2>
+                <div class="card-body p-0 py-3 px-2 d-flex justify-content-center flex-column" @click.prevent="checkDetail(item)">
+                  <h2 class="h6 text-primary"> {{ item.name }} </h2>
                   <div>
                     <span class="badge badge-primary mr-1" v-for="items in item.category" :key="items.id" :class="{'badge-danger': items.id % 2 !== 0}"> {{ items.name }} </span>
                   </div>
+                </div>
+                <div class="card-footer bg-white p-0">
+                  <a :href="item.url" target="_blank" class="btn btn-primary d-block cardBtn">點我前往網站</a>
                 </div>
               </div>
             </div>
@@ -91,20 +94,25 @@
         <div class="curtain" :class="{'curtainShow': sideMove}"></div>
         <div class="container">
           <div class="row">
-            <div class="col-md-3 my-3" v-for="item in filterData[currentPage]" :key="item.id">
-              <div class="card" @click.prevent="checkDetail(item)">
-                <div class="card-header p-0 d-flex justify-content-center">
-                  <img :src="item.images[0].src" alt="" width="100%" v-if="item.images[0]">
+            <div class="col-md-4 my-3" v-for="item in filterData[currentPage]" :key="item.id">
+              <div class="card h-100">
+                <div class="card-header p-0 d-flex justify-content-center" @click.prevent="checkDetail(item)">
+                  <img :src="item.images[0].src" alt="" height="250px" width="100%" v-if="item.images[0]">
                   <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9a/%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.svg/1200px-%E6%9A%82%E6%97%A0%E5%9B%BE%E7%89%87.svg.png" alt="" height="170px" v-else>
                 </div>
-                <div class="card-body">
+                <div class="card-body" @click.prevent="checkDetail(item)">
                   <h2 class="h5 text-secondary"> {{ item.name }} </h2>
                   <div>
                     <span class="badge badge-primary mr-1" v-for="items in item.category" :key="items.id" :class="{'badge-danger': items.id > 15}"> {{ items.name }} </span>
                   </div>
                 </div>
+                <div class="card-footer bg-white p-0">
+                  <a :href="item.url" target="_blank" class="btn btn-primary d-block cardBtn">點我前往網站</a>
+                </div>
               </div>
             </div>
+          </div>
+          <div class="row">
             <div class="d-flex mx-auto">
               <span class="d-flex align-self-center mr-2">第</span>
               <select v-model="currentPage" class="p-2">
@@ -129,7 +137,7 @@ export default {
       total: 0,
       paginationPage: 0,
       newPaginationpages: 0,
-      distric: ['中正區', '大同區', '中山區', '松山區', '大安區', '萬華區', '信義區', '士林區', '北投區', '內湖區', '南港區', '文山區'],
+      distric: [],
       currentDistric: '',
       currentPage: 0,
       newArray: [],
@@ -207,6 +215,12 @@ export default {
               const cache = vm.sessionData
               cache.push(res.data.data)
               sessionStorage.setItem('arrayData', JSON.stringify(cache))
+
+              const location = new Set()
+              vm.newArray.forEach((item) => {
+                location.add(item.distric)
+              })
+              vm.distric = Array.from(location)
             })
             // 二維陣列轉一維陣列
             vm.newArray = [].concat.apply([], vm.sessionData)
@@ -228,6 +242,15 @@ export default {
         vm.loadingCompleted = true
       }, 10)
     })
+    setTimeout(() => {
+      const vm = this
+      const location = new Set()
+
+      vm.newArray.forEach((item) => {
+        location.add(item.distric)
+      })
+      vm.distric = Array.from(location)
+    }, 100)
   }
 }
 </script>

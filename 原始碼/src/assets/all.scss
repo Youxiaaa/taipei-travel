@@ -93,8 +93,15 @@ body,html{
 
 .card{
   border: none !important;
-  cursor: pointer;
   transition: .3s ease;
+}
+
+.cardBtn{
+  border-radius: 0 !important;
+}
+
+.card-header, .card-body{
+  cursor: pointer;
 }
 
 .card:hover{
