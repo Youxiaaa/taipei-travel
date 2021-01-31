@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div class="row">
+          <div class="row" v-if="newPaginationpages === 1">
             <div class="d-flex mx-auto">
               <span class="d-flex align-self-center mr-2">第</span>
               <select v-model="currentPage" class="p-2">
