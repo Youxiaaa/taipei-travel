@@ -109,7 +109,7 @@
               <span class="d-flex align-self-center mr-2">第</span>
               <select v-model="currentPage" class="p-2">
                 <option value="0"> 1 </option>
-                <option :value="item" v-for="item in (newPaginationpages + 1)" :key="item.id"> {{ item + 1}} </option>
+                <option :value="item" v-for="item in newPaginationpages" :key="item.id"> {{ item + 1}} </option>
               </select>
               <span class="d-flex align-self-center ml-2">頁</span>
             </div>
