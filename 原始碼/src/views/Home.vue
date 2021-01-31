@@ -72,7 +72,7 @@
               </div>
             </div>
           </div>
-          <nav aria-label="Page navigation example" class="d-flex justify-content-center my-3">
+          <nav aria-label="Page navigation example" class="d-flex justify-content-center my-3"  v-if="newPaginationpages > 0">
             <ul class="pagination">
               <li class="page-item" :class="{'pageDisabled': currentPage === 0}">
                 <a class="page-link" href="#" aria-label="Previous" @click.prevent="currentPage = currentPage - 1">
@@ -112,7 +112,7 @@
               </div>
             </div>
           </div>
-          <div class="row" v-if="newPaginationpages === 1">
+          <div class="row" v-if="newPaginationpages > 0">
             <div class="d-flex mx-auto">
               <span class="d-flex align-self-center mr-2">第</span>
               <select v-model="currentPage" class="p-2">
