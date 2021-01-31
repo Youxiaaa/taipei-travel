@@ -27,7 +27,7 @@
           <h2 class="h6 text-white">Copyright &copy; 2021 YoYo游</h2>
         </div>
       </div>
-      <div class="leftSide d-flex align-items-center justify-content-center flex-column" :class="{'leftSideMove': sideMove}">
+      <div class="leftSide d-flex align-items-center justify-content-center flex-column" :class="{'leftSideMove': sideMove}" v-touch:swipe.left="closeLeftside">
         <div class="leftSideBtn">
           <div class="d-flex justify-content-center mt-2">
             <h2 class="text-white" @click="sideMove = !sideMove" v-if="sideMove">&laquo;</h2>
@@ -63,7 +63,7 @@
                 <div class="card-body p-0 py-3 pl-2 d-flex justify-content-center flex-column">
                   <h2 class="h6 text-primary d-flex"> {{ item.name }} </h2>
                   <div>
-                    <span class="badge badge-primary mr-1" v-for="items in item.category" :key="items.id" :class="{'badge-danger': items.id > 15}"> {{ items.name }} </span>
+                    <span class="badge badge-primary mr-1" v-for="items in item.category" :key="items.id" :class="{'badge-danger': items.id % 2 !== 0}"> {{ items.name }} </span>
                   </div>
                 </div>
               </div>
@@ -86,7 +86,7 @@
           </nav>
         </div>
       </div>
-      <div class="rightSide">
+      <div class="rightSide" v-touch:swipe.right="openLeftside" v-touch:swipe.left="closeLeftside">
         <!-- 遮罩 -->
         <div class="curtain" :class="{'curtainShow': sideMove}"></div>
         <div class="container">
@@ -138,6 +138,14 @@ export default {
       loadingCompleted: false
     }
   },
+  watch: {
+    currentPage: function () {
+      document.documentElement.scrollTop = 0
+    },
+    currentDistric: function () {
+      document.documentElement.scrollTop = 0
+    }
+  },
   methods: {
     checkDetail (item) {
       const vm = this
@@ -150,6 +158,14 @@ export default {
       setTimeout(() => {
         vm.$bus.$emit('getDetail', item)
       }, 400)
+    },
+    openLeftside () {
+      const vm = this
+      vm.sideMove = true
+    },
+    closeLeftside () {
+      const vm = this
+      vm.sideMove = false
     }
   },
   computed: {
@@ -195,8 +211,8 @@ export default {
             // 二維陣列轉一維陣列
             vm.newArray = [].concat.apply([], vm.sessionData)
           }, 500 * i)
+          vm.isLoading = false
         }
-        vm.isLoading = false
       })
     } else {
       // 二維陣列轉一維陣列

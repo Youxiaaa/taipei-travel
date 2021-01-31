@@ -5,6 +5,7 @@
 body,html{
   background-color: $light;
   font-family: 'Noto Sans TC', sans-serif;
+  scroll-behavior: smooth;
 }
 
 .loadingAnimation{
