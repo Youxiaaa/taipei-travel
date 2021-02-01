@@ -15,6 +15,7 @@
           <h1 class="h3 text-white mt-4">雙 北 旅 遊 資 訊 網</h1>
           <select v-model="currentDistric" class="form-control">
             <option value="" selected disabled>請選擇行政區</option>
+            <option value="">全部區域</option>
             <option :value="item" v-for="item in distric" :key="item.id"> {{ item }} </option>
           </select>
         </div>
@@ -38,6 +39,7 @@
             <h1 class="h3 text-white mt-4">雙 北 旅 遊 資 訊 網</h1>
             <select v-model="currentDistric" class="form-control">
               <option value="" selected disabled>請選擇行政區</option>
+              <option value="">全部區域</option>
               <option :value="item" v-for="item in distric" :key="item.id"> {{ item }} </option>
             </select>
         </div>
@@ -211,6 +213,7 @@ export default {
         for (var i = 0; i < vm.paginationPage; i++) {
           setTimeout(() => {
             const api = `https://cors-anywhere.herokuapp.com/https://www.travel.taipei/open-api/zh-tw/Attractions/All?page=${vm.getPage += 1}`
+            vm.isLoading = false
             vm.$http.get(api).then((res) => {
               const cache = vm.sessionData
               cache.push(res.data.data)
@@ -225,7 +228,14 @@ export default {
             // 二維陣列轉一維陣列
             vm.newArray = [].concat.apply([], vm.sessionData)
           }, 500 * i)
-          vm.isLoading = false
+          setTimeout(() => {
+            const location = new Set()
+            vm.newArray.forEach((item) => {
+              location.add(item.distric)
+            })
+            vm.distric = Array.from(location)
+            vm.newArray = [].concat.apply([], vm.sessionData)
+          }, 10000)
         }
       })
     } else {

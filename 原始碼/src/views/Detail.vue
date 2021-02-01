@@ -2,12 +2,16 @@
   <div>
     <div class="container preFadein" :class="{'fadeIn': isLoading}">
       <div class="row">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb bg-light borderAdd mt-3 ml-3">
-            <li class="breadcrumb-item"><a href="#" @click.prevent="returnPage(data.distric)"> {{ data.distric }} </a></li>
-            <li class="breadcrumb-item active" aria-current="page"> {{ data.name }} </li>
-          </ol>
-        </nav>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb bg-light borderAdd mt-3 mx-3">
+              <li class="breadcrumb-item"><a href="#" @click.prevent="returnPage('')"> 首頁 </a></li>
+              <li class="breadcrumb-item"><a href="#" @click.prevent="returnPage(data.distric)"> {{ data.distric }} </a></li>
+              <li class="breadcrumb-item active" aria-current="page"> {{ data.name }} </li>
+            </ol>
+          </nav>
+        <div class="col-12">
+          <small class="text-seconadry"> 最後更新時間 ： {{ data.modified }} </small>
+        </div>
       </div>
       <div class="row">
         <div class="col-md-6 my-3">
